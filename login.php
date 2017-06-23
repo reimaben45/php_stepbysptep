@@ -1,7 +1,7 @@
 <?php
 mysqli_connect("localhost","root","");
 mysql_select_db("account");
-
+//login page using GET
 if(isset($_POST['l']))
 {
     $a=$_POST['u'];
@@ -9,11 +9,11 @@ if(isset($_POST['l']))
     $result=mysql_query("select * from regist where user='$a' and pass='$b'");
     if(mysql_num_rows($result)>0)
     {
-        header("location:uhome.php");
+        header("location:uhome.php?t=1");
     }
     else
     {
-        echo "invalid";
+         header("location:login.php?t=1");
     }
 }
 ?>
@@ -31,7 +31,7 @@ if(isset($_POST['l']))
    </style>
     </head>
     <body>
-        <form method="post">
+        <form method="get">
             Username:
             <input type="text" name="u" value="abc@gmail.com">
             <br>
@@ -39,6 +39,19 @@ if(isset($_POST['l']))
             <input type="password" name="p">
             <br>
             <input type="submit" name="l" value="Login">
+            <?php
+             if(isset($_GET['t']))
+             {
+                if($_GET['t']==1)
+                {
+                    echo "logged in";
+                }
+                if($_GET['t']==2)
+                {
+                    echo "invalid";
+                }
+             }
+            ?>
             <br>
 
         </form>
